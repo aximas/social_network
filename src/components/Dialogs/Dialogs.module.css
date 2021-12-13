@@ -1,0 +1,62 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItem {
+    padding: 10px;
+}
+
+.dialogWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #2aa;
+}
+
+.messages {
+    position: relative;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.messages .dialogWrapper .dialog {
+    border-radius: 4px;
+    padding: 6px 12px;
+    background: #fff;
+}
+
+.messages .dialogWrapper:nth-child(2n) .dialog {
+    background: #eee;
+    color: #161616;
+}
+
+.messages .dialogWrapper:nth-child(2n) {
+    justify-content: flex-end;
+}
+
+.messagesInput {
+    position: absolute;
+    bottom: 0;
+    right: 120px;
+}
+
+.messages button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 20px;
+}
+
+.dialogWrapper.active {
+    color: red;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 6px;
+    border-radius: 50%;
+    object-fit: cover;
+}

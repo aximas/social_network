@@ -1,0 +1,7 @@
+.item {
+    color: blue;
+    border: 1px solid #fff
+}
+.item img {
+    width: 200px;
+}
