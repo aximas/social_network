@@ -1,3 +1,7 @@
+html, * {
+    box-sizing: border-box;
+}
+
 .app-wrapper {
     display: grid;
     width: 1120px;

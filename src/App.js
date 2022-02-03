@@ -8,6 +8,7 @@ import {Route} from "react-router-dom";
 import Music from "./components/Music/Music";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import FriendContainer from "./components/Sidebar/Friends/Friend/FriendsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 function App() {
     return (
@@ -15,8 +16,9 @@ function App() {
             <Header/>
             < Navbar/>
             <div className='app-wrapper-content'>
-                <Route path='/friends' render={() => <FriendContainer /> } />
+                <Route path='/friends' render={() => <FriendContainer/>}/>
                 <Route path='/messages' render={() => <DialogsContainer/>}/>
+                <Route path='/users' render={() => <UsersContainer/>}/>
                 <Route path='/profile'
                        render={() => <Profile/>}/>
                 <Route path='/music' component={Music}/>
