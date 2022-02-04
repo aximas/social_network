@@ -22,3 +22,22 @@
 .userAvatar button {
     width: 100%;
 }
+
+.pages {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page {
+    opacity: .6;
+    padding: 4px;
+    margin-right: 12px;
+}
+
+.page:hover {
+    cursor: pointer;
+}
+
+.selectedPage {
+    opacity: 1;
+}
