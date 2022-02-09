@@ -1,40 +1,10 @@
 import React from "react";
 import styles from "./Users.module.css";
-import * as axios from "axios";
 import userPhoto from "../../assets/images/user.jpg";
 
-class Users extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(
-                response => {
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalUsersCount(response.data.totalCount)
-                }
-            )
-    }
-
-    onCurrentPage(pageNum) {
-        this.props.setCurrentPage(pageNum);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`)
-            .then(
-                response => {
-                    this.props.setUsers([...response.data.items])
-                }
-            )
-    }
-
-    pagesCount() {
-        return Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-    }
-
-    user = () => {
-        return this.props.users.map(u => (
+const Users = (props) => {
+     const user = props.users.map(u => (
             <div key={u.id} className={styles.user}>
                 <div className={styles.userAvatar}>
                     <img
@@ -42,10 +12,10 @@ class Users extends React.Component {
                         alt="" className={styles}/>
                     {u.followed
                         ? <button onClick={() => {
-                            this.props.unfollowF(u.id)
+                            props.unfollowF(u.id)
                         }}>Un follow</button>
                         : <button onClick={() => {
-                            this.props.followF(u.id)
+                            props.followF(u.id)
                         }}>Follow </button>}
                 </div>
                 <div className="userInfo">
@@ -64,30 +34,31 @@ class Users extends React.Component {
                     </p>
                 </div>
             </div>
-        ))
-    }
+        ));
 
-    render() {
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
-        let pages = [];
-        for (let i = 1; i <= this.pagesCount(); i++) {
-            pages.push(i);
-        }
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
+    };
 
-        return (
-            <div className={styles.users}>
-                <div className={styles.pages}>
-                    {pages.map(pageNum => {
-                        return <span key={pageNum}
-                                     className={`${styles.page} ${this.props.currentPage === pageNum ? styles.selectedPage : ''}`}
-                                     onClick={() => this.onCurrentPage(pageNum)}>{pageNum}</span>
-                    })}
-                </div>
-                {this.user()}
+    return (
+        <div className={styles.users}>
+            <div className={styles.pages}>
+                {pages.map(pageNum => {
+                    return <span key={pageNum}
+                                 className={`${styles.page} ${props.currentPage === pageNum ? styles.selectedPage : ''}`}
+                                 onClick={() => {
+                                     props.onCurrentPage(pageNum);
+                                 }}>
+                        {pageNum}
+                    </span>
+                })}
             </div>
-        )
-    }
-
+            {user}
+        </div>
+    )
 
 }
 
