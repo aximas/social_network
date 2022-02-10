@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.jpg";
-import loader from "../../assets/images/Dual Ring-1s-200px.svg";
 import Preloader from "../common/Preloader/Preloader";
 
 
@@ -14,7 +13,7 @@ const Users = (props) => {
                         alt="" className={styles}/>
                     {u.followed
                         ? <button onClick={() => {
-                            props.unfollowF(u.id)
+                            props.unFollowF(u.id)
                         }}>Un follow</button>
                         : <button onClick={() => {
                             props.followF(u.id)
