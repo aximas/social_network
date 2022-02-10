@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.jpg";
+import loader from "../../assets/images/Dual Ring-1s-200px.svg";
+import Preloader from "../common/Preloader/Preloader";
 
 
 const Users = (props) => {
@@ -39,7 +41,7 @@ const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
     let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= 25; i++) {
         pages.push(i);
     };
 
@@ -56,7 +58,7 @@ const Users = (props) => {
                     </span>
                 })}
             </div>
-            {user}
+            {props.isFetching ? <Preloader /> : user}
         </div>
     )
 

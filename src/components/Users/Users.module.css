@@ -26,6 +26,7 @@
 .pages {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
 .page {
@@ -40,4 +41,9 @@
 
 .selectedPage {
     opacity: 1;
+}
+
+.loader {
+    width: 40px;
+    margin: 20px auto;
 }
