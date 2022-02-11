@@ -2,15 +2,18 @@ import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.jpg";
 import Preloader from "../common/Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 
 const Users = (props) => {
      const user = props.users.map(u => (
             <div key={u.id} className={styles.user}>
                 <div className={styles.userAvatar}>
-                    <img
-                        src={u.photos.small != null ? u.photos.small : userPhoto}
-                        alt="" className={styles}/>
+                    <NavLink to={'/profile/' + u.id}>
+                        <img
+                            src={u.photos.small != null ? u.photos.small : userPhoto}
+                            alt="" className={styles}/>
+                    </NavLink>
                     {u.followed
                         ? <button onClick={() => {
                             props.unFollowF(u.id)

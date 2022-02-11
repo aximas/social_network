@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE = 'SET-USER-PROFILE';
 
 const initialState = {
     posts: [
@@ -22,7 +23,8 @@ const initialState = {
             img_url: 'https://i.pinimg.com/736x/19/99/cc/1999cc3fd1013c39eae4682162ad2d27--avatar-james-cameron-avatar-fan-art.jpg'
         },
     ],
-    newPostText: 'Hello Bro'
+    newPostText: 'Hello Bro',
+    userProfile: []
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -45,6 +47,12 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: action.newText
             }
         }
+        case SET_USER_PROFILE: {
+            return  {
+                ...state,
+                userProfile: action.userProfile
+            }
+        }
         default:
             return state;
     }
@@ -53,6 +61,7 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const addNewPostActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export const setUserProfile = (userProfile) => ({type: SET_USER_PROFILE, userProfile});
 
 export default profileReducer;
 
