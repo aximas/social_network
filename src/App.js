@@ -14,12 +14,12 @@ function App() {
     return (
         <div className='app-wrapper'>
             <Header/>
-            < Navbar/>
+            <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path='/friends' render={() => <FriendContainer/>}/>
                 <Route path='/messages' render={() => <DialogsContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path='/profile'
+                <Route path='/profile/:userId?'
                        render={() => <ProfileContainer/>}/>
                 <Route path='/music' component={Music}/>
             </div>
