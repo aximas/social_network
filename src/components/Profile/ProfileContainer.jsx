@@ -7,7 +7,7 @@ import {withRouter} from "react-router-dom";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let userId = this.props.match.params.userId ?? 22333;
+        let userId = this.props.match.params.userId ?? ((this.props.isAuth) ? this.props.userId : 22333);
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
                 console.log(response.data);
@@ -20,7 +20,10 @@ class ProfileContainer extends React.Component {
     }
 }
 const mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth,
+    userId: state.auth.userId
+
 })
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
