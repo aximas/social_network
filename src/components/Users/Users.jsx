@@ -3,7 +3,6 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.jpg";
 import Preloader from "../common/Preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 
 const Users = (props) => {
@@ -16,27 +15,10 @@ const Users = (props) => {
                         alt="" className={styles}/>
                 </NavLink>
                 {u.followed
-                    ? <button onClick={() => {
-
-                        props.ToggleFollowingProgress(true, u.id);
-                        usersAPI.unFollowTheUser(u.id)
-                            .then(response => {
-                                if (response.resultCode === 0) {
-                                    props.ToggleFollowingProgress(false, u.id);
-                                    props.unFollowF(u.id);
-                                }
-                            });
-                    }} disabled={props.isFollowingProgress.some(userId => userId === u.id)}>Un follow</button>
-                    : <button onClick={() => {
-
-                        props.ToggleFollowingProgress(true, u.id);
-                        usersAPI.followTheUser(u.id).then(response => {
-                            if (response.resultCode === 0) {
-                                props.ToggleFollowingProgress(false, u.id);
-                                props.followF(u.id);
-                            }
-                        });
-                    }} disabled={props.isFollowingProgress.some(userId => userId === u.id)}>Follow </button>}
+                    ? <button onClick={() => props.unFollowUsers(u.id)}
+                              disabled={props.isFollowingProgress.some(userId => userId === u.id)}>Un follow</button>
+                    : <button onClick={() => props.followUsers(u.id)}
+                              disabled={props.isFollowingProgress.some(userId => userId === u.id)}>Follow </button>}
             </div>
             <div className="userInfo">
                 <p className="userName">
