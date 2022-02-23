@@ -9,6 +9,8 @@ import FriendContainer from "./components/Sidebar/Friends/Friend/FriendsContaine
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/Login/Login";
+import store from "./redux/redux-store";
 
 function App() {
     return (
@@ -20,8 +22,9 @@ function App() {
                 <Route path='/messages' render={() => <DialogsContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
                 <Route path='/profile/:userId?'
-                       render={() => <ProfileContainer/>}/>
+                       render={() => <ProfileContainer store={store}/>}/>
                 <Route path='/music' component={Music}/>
+                <Route path='/login' component={LoginPage} />
             </div>
         </div>
     );

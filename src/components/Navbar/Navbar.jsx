@@ -8,6 +8,9 @@ const Navbar = (props) => {
                 <a href="/profile">Profile</a>
             </div>
             <div className={styles.item}>
+                <a href="/login">Login</a>
+            </div>
+            <div className={styles.item}>
                 <a href="/messages">Messages</a>
             </div>
             <div className={styles.item}>
