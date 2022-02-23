@@ -22,14 +22,9 @@ let mapStateToProps = (state) => ({
     userId: state.auth.userId
 })
 
-// export default compose(
-//     connect(mapStateToProps, {setUserProfile, getUserProfileThunk}),
-//     withRouter,
-//     withAuthRedirectHOC
-// )(ProfileContainer)
+export default compose(
+    connect(mapStateToProps, {setUserProfile, getUserProfileThunk}),
+    withRouter,
+    withAuthRedirectHOC
+)(ProfileContainer)
 
-let withAuthRedirect = withAuthRedirectHOC(ProfileContainer)
-
-let WithUrlDataContainerComponent = withRouter(withAuthRedirect);
-
-export default connect(mapStateToProps, {setUserProfile, getUserProfileThunk})(WithUrlDataContainerComponent);

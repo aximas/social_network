@@ -18,12 +18,12 @@ function App() {
             <HeaderContainer/>
             <Navbar/>
             <div className='app-wrapper-content'>
-                <Route path='/friends' render={() => <FriendContainer/>}/>
-                <Route path='/messages' render={() => <DialogsContainer/>}/>
-                <Route path='/users' render={() => <UsersContainer/>}/>
+                <Route path='/friends' render={() => <FriendContainer store={store}/>}/>
+                <Route path='/messages' render={() => <DialogsContainer store={store}/>}/>
+                <Route path='/users' render={() => <UsersContainer store={store}/>}/>
                 <Route path='/profile/:userId?'
                        render={() => <ProfileContainer store={store}/>}/>
-                <Route path='/music' component={Music}/>
+                <Route path='/music' render={() => <Music store={store} />}/>
                 <Route path='/login' component={LoginPage} />
             </div>
         </div>
