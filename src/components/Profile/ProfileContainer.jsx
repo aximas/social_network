@@ -13,7 +13,7 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let userId = this.props.match.params.userId ?? 22645;
+        let userId = this.props.match.params.userId ?? 22522;
         this.props.getUserProfileThunk(userId);
         this.props.getUserStatusThunk(userId);
     }
