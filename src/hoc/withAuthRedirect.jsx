@@ -14,7 +14,6 @@ export const withAuthRedirectHOC = (Component) => {
     class RedirectComponent extends React.Component {
 
         render() {
-            console.log(this.props.isAuth)
             if (!this.props.isAuth) return <Login/>
             return <Component {...this.props} />
         }
