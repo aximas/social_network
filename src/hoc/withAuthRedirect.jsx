@@ -1,7 +1,6 @@
 import React from "react";
 import Login from "../components/Login/Login";
 import connect from "react-redux/lib/connect/connect";
-import store from "../redux/redux-store";
 import {Redirect} from "react-router-dom";
 
 let mapStateToProps = (state) => ({
