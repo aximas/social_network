@@ -24,7 +24,7 @@ function App() {
                 <Route path='/profile/:userId?'
                        render={() => <ProfileContainer store={store}/>}/>
                 <Route path='/music' render={() => <Music store={store} />}/>
-                <Route path='/login' component={LoginPage} />
+                <Route path='/login' render={() => <LoginPage store={store} />} />
             </div>
         </div>
     );

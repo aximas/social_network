@@ -1,5 +1,7 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
+import connect from "react-redux/lib/connect/connect";
+import {loginProfileThunk} from "../../redux/profile-reducer";
 
 let ContactForm = props => {
     const {handleSubmit} = props;
@@ -18,15 +20,15 @@ let ContactForm = props => {
         </form>
 }
 
-ContactForm = reduxForm({
-    form: 'login'
-})(ContactForm)
+const onSubmit = (values, dispatch) => {
+    console.log(values);
+    console.log(dispatch);
+    dispatch(loginProfileThunk(values.login, values.password, values.rememberMe))
+};
 
-const Login = () => {
-    return <div>
-        <h1>Login</h1>
-            <ContactForm/>
-         </div>
-}
 
-export default Login
+export default connect(null, {loginProfileThunk})(reduxForm({
+    form: 'login',
+    onSubmit,
+})(ContactForm));
+

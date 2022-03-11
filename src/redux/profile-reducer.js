@@ -1,9 +1,9 @@
 import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
+const SET_PROFILE_ID = 'SET-PROFILE-ID';
 
 const initialState = {
     posts: [
@@ -26,8 +26,8 @@ const initialState = {
             img_url: 'https://i.pinimg.com/736x/19/99/cc/1999cc3fd1013c39eae4682162ad2d27--avatar-james-cameron-avatar-fan-art.jpg'
         },
     ],
-    newPostText: 'Hello Bro',
     profile: null,
+    profileID: '',
     status: ''
 };
 const profileReducer = (state = initialState, action) => {
@@ -36,17 +36,10 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [...state.posts, {
-                    id: 4, text: state.newPostText,
+                    id: 4, text: action.myPostText,
                     likesCounter: 12,
                     img_url: 'https://талисман-ростов.рф/wp-content/uploads/2020/09/1dcf2483e42611e98903000000000000_fce35a4b36f611eba99f000000000000.png'
                 }],
-                newPostText: ''
-            }
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
             }
         }
         case SET_USER_PROFILE: {
@@ -59,16 +52,21 @@ const profileReducer = (state = initialState, action) => {
                 ...state, status: action.status
             }
         }
+        case SET_PROFILE_ID: {
+            return {
+                ...state, profileID: action.profileID
+            }
+        }
         default:
             return state;
     }
 
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const addNewPostActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export const addPostActionCreator = (myPostText) => ({type: ADD_POST, myPostText});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setUserStatus = (status) => ({type: SET_USER_STATUS, status});
+export const setProfileId = (profileID) => ({type: SET_PROFILE_ID, profileID});
 
 export const getUserProfileThunk = (userId) => (dispatch) => {
     return usersAPI.getUserProfile(userId)
@@ -89,6 +87,15 @@ export const updateUserStatusThunk = (status) => (dispatch) => {
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setUserStatus(status))
+            }
+        })
+}
+
+export const loginProfileThunk = (email, password, rememberMe) => (dispatch) => {
+    return profileAPI.loginProfile(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setProfileId(response.data.data.userId))
             }
         })
 }

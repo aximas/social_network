@@ -2,6 +2,7 @@ import React from 'react';
 import style from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from "./Message/Message";
+import {Field, reduxForm, reset} from "redux-form";
 
 const Dialogs = (props) => {
 
@@ -9,13 +10,10 @@ const Dialogs = (props) => {
                                                                            imgSrc={dialog.imgSrc}/>);
     let messagesElements = props.messages.map((message, i) => <Message key={i} message={message.text} id={message.id}/>);
 
-    let sendMessage = () => {
-        props.addMessage();
-    }
-
-    let onMessageChange = (e) => {
-        let text = e.target.value;
-        props.updateNewMessage(text);
+    let sendMessage = (values, dispatch) => {
+        console.log(values.dialogMessage);
+        props.addMessage(values.dialogMessage);
+        dispatch(reset('DialogForm'))
     }
 
     return (
@@ -25,12 +23,21 @@ const Dialogs = (props) => {
             </div>
             <div className={style.messages}>
                 {messagesElements}
-                <textarea className={style.messagesInput} onChange={onMessageChange}
-                          value={props.newMessage}/>
-                <button onClick={sendMessage}>Send</button>
+                <DialogForm onSubmit={sendMessage} />
             </div>
         </div>
     );
 }
+
+let DialogForm = (props) => {
+    const {handleSubmit} = props;
+    return <form onSubmit={handleSubmit}>
+        <Field component="textarea" name="dialogMessage" className={style.messagesInput}>
+        </Field>
+        <button>Send</button>
+    </form>
+}
+
+DialogForm = reduxForm({form: 'DialogForm'})(DialogForm)
 
 export default Dialogs;
