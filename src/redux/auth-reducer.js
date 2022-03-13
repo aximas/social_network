@@ -35,7 +35,6 @@ export const setAuthData = (userId, login, email) => ({type: SET_AUTH_DATA, data
 export const setAuthUserImg = (imgSrc) => ({type: SET_AUTH_USER_IMG, imgSrc})
 
 export const authUser = () => (dispatch) => {
-
     return  usersAPI.authUser()
         .then(response => {
             if (response.resultCode === 0) {

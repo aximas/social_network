@@ -36,7 +36,7 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [...state.posts, {
-                    id: 4, text: action.myPostText,
+                    id: Math.round(Math.random()*100), text: action.myPostText,
                     likesCounter: 12,
                     img_url: 'https://талисман-ростов.рф/wp-content/uploads/2020/09/1dcf2483e42611e98903000000000000_fce35a4b36f611eba99f000000000000.png'
                 }],
