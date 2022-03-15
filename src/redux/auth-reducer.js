@@ -1,7 +1,8 @@
-import {usersAPI} from "../api/api";
+import {authAPI, usersAPI} from "../api/api";
 
 const SET_AUTH_DATA = 'SET-AUTH-DATA';
 const SET_AUTH_USER_IMG = 'SET_AUTH_USER_IMG';
+const DEL_AUTH_USER = 'DEL-AUTH-USER';
 
 const initialState = {
     userId: null,
@@ -16,13 +17,19 @@ const authReducer = (state = initialState, action) => {
         case SET_AUTH_DATA:
             return {
                 ...state,
-                ...action.data,
+                ...action.payload,
                 isAuth: true
             }
         case SET_AUTH_USER_IMG:
             return {
                 ...state,
                 imgSrc: action.imgSrc,
+            }
+        case DEL_AUTH_USER:
+            return {
+                ...state,
+                ...action.payload,
+                isAuth: false
             }
         default:
             return {
@@ -31,11 +38,15 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthData = (userId, login, email) => ({type: SET_AUTH_DATA, data: {userId, login, email}})
+export const setAuthData = (userId, login, email) => ({type: SET_AUTH_DATA, payload: {userId, login, email}})
+export const delAuthData = (userId = null, login = null, email = null) => ({
+    type: DEL_AUTH_USER,
+    payload: {userId, login, email}
+})
 export const setAuthUserImg = (imgSrc) => ({type: SET_AUTH_USER_IMG, imgSrc})
 
 export const authUser = () => (dispatch) => {
-    return  usersAPI.authUser()
+    authAPI.authUser()
         .then(response => {
             if (response.resultCode === 0) {
                 const {id, login, email} = response.data
@@ -48,6 +59,24 @@ export const authUser = () => (dispatch) => {
             }
         })
 
+}
+
+export const loginUser = (email, password, rememberMe) => (dispatch) => {
+    authAPI.loginProfile(email, password, rememberMe)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(authUser())
+            }
+        })
+}
+
+export const logoutUser = () => (dispatch) => {
+    authAPI.unLoginProfile()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(delAuthData())
+            }
+        })
 }
 
 export default authReducer;

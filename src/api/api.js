@@ -24,7 +24,8 @@ export const usersAPI = {
     },
 
     authUser: () => {
-      return instance.get(`auth/me`).then(response => response.data)
+        console.warn('Obsolete method. Please authAPI object');
+        return instance.get(`auth/me`).then(response => response.data)
     },
 
     getUserProfile: (id) => {
@@ -42,6 +43,12 @@ export const profileAPI = {
     },
     updateStatus(status) {
         return instance.put(`profile/status`, {status});
+    }
+}
+
+export const authAPI = {
+    authUser: () => {
+        return instance.get(`auth/me`).then(response => response.data)
     },
     loginProfile(email, password, rememberMe = false) {
         return instance.post(`auth/login`, {email, password, rememberMe});

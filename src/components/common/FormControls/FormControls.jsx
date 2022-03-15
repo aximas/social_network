@@ -6,15 +6,22 @@ export const TextArea = ({input, placeholder, meta}) => {
     console.log(meta);
     let hasError = error && touched;
 
-    const MyPostForm = <div>
+    const myPostForm = <div>
         <textarea {...input} placeholder={placeholder} className={hasError ? "error" : ""}/>
         {
             hasError && (error && <span>{error}</span> || warning && <span>{error}</span>)
         }
     </div>;
 
-    const DialogForm = <div>
-        <input {...input} placeholder={placeholder} className={`${hasError ? "error" : ""}`}/>
+    const dialogForm = <div>
+        <input {...input} placeholder={placeholder} className={`dialogForm ${hasError ? "error" : ""}`}/>
+        {
+            hasError && (error && <span>{error}</span> || warning && <span>{error}</span>)
+        }
+    </div>;
+
+    const loginForm = <div>
+        <input {...input} placeholder={placeholder} className={hasError ? "error" : ""}/>
         {
             hasError && (error && <span>{error}</span> || warning && <span>{error}</span>)
         }
@@ -22,8 +29,9 @@ export const TextArea = ({input, placeholder, meta}) => {
 
     const renderFormSwitch = (form) => {
        switch (form) {
-           case "DialogForm": return DialogForm;
-           case "MyPostForm": return MyPostForm;
+           case "DialogForm": return dialogForm;
+           case "MyPostForm": return myPostForm;
+           case "login": return loginForm;
        }
 
     }

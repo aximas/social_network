@@ -1,16 +1,27 @@
 import React from 'react'
 import {Field, reduxForm} from 'redux-form'
 import connect from "react-redux/lib/connect/connect";
-import {loginProfileThunk} from "../../redux/profile-reducer";
+import {loginUser} from "../../redux/auth-reducer";
+import {Redirect} from "react-router-dom";
+import {TextArea} from "../common/FormControls/FormControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
+
+const maxLength18 = maxLengthCreator(18);
 
 let ContactForm = props => {
     const {handleSubmit} = props;
+
+    console.log(props.isAuth)
+    if(props.isAuth) {
+        return <Redirect to="/profile" />
+    }
+
     return <form onSubmit={handleSubmit}>
             <div>
-                <Field name="login" component="input" type="text" placeholder={"Login"}/>
+                <Field name="login" component={TextArea} type="text" placeholder={"Login"} validate={[required, maxLength18]}/>
             </div>
             <div>
-                <Field name="password" component="input" type="text" placeholder={"Password"}/>
+                <Field name="password" component={TextArea} type="text" placeholder={"Password"} validate={[required, maxLength18]}/>
             </div>
             <div>
                 <label htmlFor="remember">Remember me</label>
@@ -23,11 +34,11 @@ let ContactForm = props => {
 const onSubmit = (values, dispatch) => {
     console.log(values);
     console.log(dispatch);
-    dispatch(loginProfileThunk(values.login, values.password, values.rememberMe))
+    dispatch(loginUser(values.login, values.password, values.rememberMe))
 };
 
 
-export default connect(null, {loginProfileThunk})(reduxForm({
+export default connect((state) => ({isAuth: state.auth.isAuth}), {loginUser})(reduxForm({
     form: 'login',
     onSubmit,
 })(ContactForm));

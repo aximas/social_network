@@ -1,4 +1,4 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {authAPI, profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -92,7 +92,7 @@ export const updateUserStatusThunk = (status) => (dispatch) => {
 }
 
 export const loginProfileThunk = (email, password, rememberMe) => (dispatch) => {
-    return profileAPI.loginProfile(email, password, rememberMe)
+    return authAPI.loginProfile(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(setProfileId(response.data.data.userId))
